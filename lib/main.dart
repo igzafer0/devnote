@@ -1,20 +1,23 @@
-import 'package:devnote/util/constant/color_constant.dart';
 import 'package:flutter/material.dart';
 
+import 'config/navigation/navigation_route.dart';
+import 'config/navigation/navigation_service.dart';
+import 'injection_container.dart';
+
 void main() {
-  runApp(const MyApp());
+  initInjection();
+  runApp(const DevNote());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class DevNote extends StatelessWidget {
+  const DevNote({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: ColorConstant.APP_BLACK,
-      ),
+      onGenerateRoute: locator.get<NavigationRoute>().generateRoute,
+      navigatorKey: locator.get<NavigationService>().navigatorKey,
     );
   }
 }
